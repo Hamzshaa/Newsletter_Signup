@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const https = require("https");
+require("dotenv").config();
 
 const app = express();
 
@@ -31,10 +32,15 @@ app.post("/", (req, res) => {
 
   const jsonData = JSON.stringify(data);
 
+  // const API_KEY = "3b0a96588cf87a8f476dc0e2a05fcb30-us11";
+
   const url = "https://us11.api.mailchimp.com/3.0/lists/2ad80fc4bc";
+  // const ap = process.env.API_KEY;
+  const api = "3b0a96588cf87a8f476dc0e2a05fcb30-us11";
+  console.log(api);
   const option = {
     method: "POST",
-    auth: "trident1:e9518f5933e5549c35a9d5b9dbf1fb95-us11",
+    auth: `trident1:${api}`,
   };
 
   const request = https.request(url, option, (response) => {
@@ -58,7 +64,7 @@ app.post("/failure", (req, res) => {
 });
 
 app.listen(process.env.PORT || 3333, () => {
-  console.log("Server is listening on port 3333.");
+  console.log("Server is listening on port 3333.", process.env.API_KEY);
 });
 
 // a8264cdd7bae1dfa520576fe917afdac-us11
